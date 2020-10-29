@@ -18,12 +18,6 @@ function SearchPokemon() {
         setKantoPokemon(PokedexMapped150);
         checkTypes();
     },[kantoPokemon])
-   
-
-    
-  
-
-
 
    const handleFormSubmit = e => {
         e.preventDefault();
@@ -31,12 +25,6 @@ function SearchPokemon() {
         //console.log(kantoPokemon)
         //console.log(types)
         console.log(typeState)
-        
-        
-        
-      
-     
-
         
     };
 
@@ -56,7 +44,7 @@ function SearchPokemon() {
         } else {
             typesArr.push(`${typeOne.name} ${typeTwo.name}`)
         }
-        console.log(typesArr[0])
+        //console.log(typesArr[0])
         setTypeState(typesArr[0], typesArr[0])
       })
       
@@ -66,10 +54,10 @@ function SearchPokemon() {
  
     return <>
 
-    <SearchForm 
+    {/* <SearchForm 
         handleFormSubmit={handleFormSubmit}
         handleInputChange={handleInputChange}
-     />
+     /> */}
     
     <Wrapper>
     {kantoPokemon.map(item => (

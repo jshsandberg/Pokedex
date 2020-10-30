@@ -1,71 +1,93 @@
 import React, { useState, useEffect } from "react";
-import SearchForm from "./SearchForm.js"
-import ResultList from "./ResultList";
-import PokedexMapped150 from "./pokedexMapped150.json"
-import Wrapper from "./Wrapper"
+import SearchForm from "./SearchForm.js";
+import ResultList from "./ResultsList";
+import PokedexMapped150 from "./pokedexMapped150.json";
+import Wrapper from "./Wrapper";
+import SearchResult from "./SearchResult";
+
+
 
 function SearchPokemon() {
-    const [kantoPokemon, setKantoPokemon] = useState([]);
-    const [typeState, setTypeState] = useState([]);
-    const [inputState, setInputState] = useState("");
-    const [searchState, setSearchState] = useState("");
-  
+    const [kantoPokemon, setKantoPokemon] = useState(PokedexMapped150);
+    const [typeState, setTypeState] = useState({});
+    const [inputState, setInputState] = useState();
+    const [searchState, setSearchState] = useState();
+    const [grabPokemon, setGrabPokemon] = useState([]);
+    const [empty, setEmpty] = useState(false);
+    
 
-    
-    
 
     useEffect(()=> {
-        setKantoPokemon(PokedexMapped150);
-        checkTypes();
-    },[kantoPokemon])
+        setKantoPokemon(kantoPokemon)
+       
+    },[inputState])
 
    const handleFormSubmit = e => {
         e.preventDefault();
-        const { types } = kantoPokemon
+  
+
+        const check = () => {
+            setKantoPokemon(PokedexMapped150)
+            for (let i = 0; i < kantoPokemon.length; i++) {
+                //console.log(kantoPokemon[i])
+                if (kantoPokemon[i].name === inputState){
+                    setKantoPokemon(kantoPokemon[i])
+                    setEmpty(false)
+                } else {
+                    setEmpty(true)
+                }
+            }
+        }
+
+        check()
         //console.log(kantoPokemon)
-        //console.log(types)
-        console.log(typeState)
+        
+    
+    
         
     };
 
     const handleInputChange = event => {
         setInputState(event.target.value)
+        //console.log('hello')
         
     };
 
-    const checkTypes = () => {
-        kantoPokemon.map(type => {
-        const typeOne = type.types[0]
-        const typeTwo = type.types[1]
-        const typesArr = []
-        //console.log(type.types)
-        if (typeTwo === undefined ) {
-            typesArr.push(typeOne.name)
-        } else {
-            typesArr.push(`${typeOne.name} ${typeTwo.name}`)
-        }
-        //console.log(typesArr[0])
-        setTypeState(typesArr[0], typesArr[0])
-      })
-      
-    }
-    
+  
    
  
     return <>
 
-    {/* <SearchForm 
-        handleFormSubmit={handleFormSubmit}
-        handleInputChange={handleInputChange}
-     /> */}
-    
-    <Wrapper>
-    {kantoPokemon.map(item => (
-        <ResultList item={item} key={Math.random(item.name.length)}></ResultList>
-    ))}
+  
    
-      
-      </Wrapper>
+     
+        {kantoPokemon.length > 1 ?  
+            <>
+                <Wrapper>
+                    <div className="row">
+                        <SearchForm 
+                            handleFormSubmit={handleFormSubmit}
+                            handleInputChange={handleInputChange}
+                        >
+                        </SearchForm>
+                    </div>
+                    <div className="row center">
+                        {kantoPokemon.map(item => (
+                            <ResultList item={item} 
+                                key={Math.random(item.name.length)} 
+                            >
+                            </ResultList>
+                        ))} 
+                    </div>
+                </Wrapper>
+            </>
+            :
+            <Wrapper> 
+                <SearchResult
+                    kantoPokemon={kantoPokemon}></SearchResult>
+                    
+            </Wrapper>
+        }
 
 </>
 

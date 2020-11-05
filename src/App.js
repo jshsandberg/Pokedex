@@ -1,6 +1,6 @@
 import React from "react"
 // import PokemonCards from "./components/PokemonCards.js"
-import SearchPokemon from "./components/SearchPokemon";
+import SearchPokemon from "./components/SearchPokemon/SearchPokemon";
 // import Ocean from "/OceanPokemon.jpg" 
 
 

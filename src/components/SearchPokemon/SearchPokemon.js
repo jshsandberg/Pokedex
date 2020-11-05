@@ -1,19 +1,29 @@
 import React, { useState, useEffect } from "react";
-import SearchForm from "./SearchForm.js";
-import ResultList from "./ResultsList";
-import PokedexMapped150 from "./pokedexMapped150.json";
-import Wrapper from "./Wrapper";
-import SearchResult from "./SearchResult";
+import SearchForm from "../SearchForm.js";
+import ResultList from "../ResultsList";
+import PokedexMapped150 from "../pokedexMapped150.json";
+import Wrapper from "../Wrapper";
+import SearchResult from "../SearchResult";
+import ReturnAll from "../ReturnAll/ReturnAll.js";
+import SingleResult from "../SingleResult/index.js";
+import API from "../../utils/API"
+import Meter from "../Meter/index.js"
 
 
 
 function SearchPokemon() {
     const [kantoPokemon, setKantoPokemon] = useState(PokedexMapped150);
-    const [typeState, setTypeState] = useState({});
+    const [apiState, setApiState] = useState([]);
     const [inputState, setInputState] = useState();
     const [searchState, setSearchState] = useState();
     const [grabPokemon, setGrabPokemon] = useState([]);
     const [empty, setEmpty] = useState(false);
+
+    const resultCSS = {
+        textAlign: "center",
+        textTransform: "capitalize",
+        fontWeight: "bold",
+    }
     
 
 
@@ -40,7 +50,7 @@ function SearchPokemon() {
         }
 
         check()
-        //console.log(kantoPokemon)
+      
         
     
     
@@ -53,6 +63,11 @@ function SearchPokemon() {
         
     };
 
+   
+
+    const returnAll = () => {
+        setKantoPokemon(PokedexMapped150)
+    }
   
    
  
@@ -71,7 +86,7 @@ function SearchPokemon() {
                         >
                         </SearchForm>
                     </div>
-                    <div className="row center">
+                    <div style={{justifyContent: "center"}} className="row center">
                         {kantoPokemon.map(item => (
                             <ResultList item={item} 
                                 key={Math.random(item.name.length)} 
@@ -83,11 +98,29 @@ function SearchPokemon() {
             </>
             :
             <Wrapper> 
-                <SearchResult
-                    kantoPokemon={kantoPokemon}></SearchResult>
+                <div className="row">
+                    <div className="col">
+                        <ReturnAll
+                            returnAll={returnAll}
+                        >
+                        </ReturnAll>
+                    </div>
+                    <div className="col">
+                        <SingleResult
+                            kantoPokemon={kantoPokemon}
+                        >
+                        </SingleResult>
+                    </div>
+                </div>
+              
+              
+           
+            
                     
             </Wrapper>
         }
+
+
 
 </>
 

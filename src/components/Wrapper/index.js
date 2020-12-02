@@ -5,7 +5,7 @@ import BackgroundBlue from "../../utils/BlueBackgroundImage.jpg"
 import BackgroundRed from "../../utils/RedBackgroundImage.jpg"
 
 const sectionStyle = {
-  backgroundImage: `url(${BackgroundRed})`
+  backgroundImage: `url(${Background})`
 }
 
 function Wrapper(props) {
